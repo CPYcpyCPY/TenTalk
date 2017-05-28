@@ -10,4 +10,8 @@ router.get('/renting', function(req, res, next) {
   res.render('renting', { title: '租房' });
 });
 
+router.get('/publish', function(req, res, next) {
+  res.render('publish', { title: '闲置发布' });
+});
+
 module.exports = router;
