@@ -1,8 +1,11 @@
 extends layout
 
 block content
-  div#box
-    button#sendMsg 发消息给原生
-    button#useNative js调用原生方法
-    button#reload 重新加载页面
-  p Welcome to #{title}
+  script(src='/js/index.js')
+  div#app
+    div#box
+      md-button#sendMsg.md-raised.md-primary 发消息给原生
+      md-button#useNative.md-raised.md-primary js调用原生方法
+      md-button#reload.md-raised.md-primary 重新加载页面
+    p Welcome to #{title}
+
