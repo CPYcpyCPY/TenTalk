@@ -1,0 +1,7 @@
+#box {
+  display: flex;
+}
+
+#box button {
+  flex: 1;
+}

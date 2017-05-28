@@ -1,11 +1,12 @@
 extends layout
 
 block content
+  link(href="/css/index.css", rel="stylesheet")
   script(src='/js/index.js')
   div#app
     div#box
-      md-button#sendMsg.md-raised.md-primary 发消息给原生
-      md-button#useNative.md-raised.md-primary js调用原生方法
-      md-button#reload.md-raised.md-primary 重新加载页面
+      button#sendMsg.mui-btn.mui-btn-primary 发消息给原生
+      button#useNative.mui-btn.mui-btn-success js调用原生方法
+      button#reload.mui-btn.mui-btn-warning 重新加载页面
     p Welcome to #{title}
 
