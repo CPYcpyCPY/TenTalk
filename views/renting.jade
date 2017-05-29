@@ -1,6 +1,28 @@
 extends layout
 
-content content
-  script(src="/js/renting.js")
+block content
+  link(href='/MUI/css/mui.picker.min.css', rel="stylesheet")
+  link(href='/css/renting.css', rel="stylesheet")
+  script(src="/js/data.js")
+  script(src="/MUI/js/mui.picker.min.js")
   div#app
-    h1 qwe{{text}}
+    div.mui-row
+      div.mui-col-sm-6.mui-col-xs-12
+        div.mui-btn.mui-btn-block.choose(@click='chooseLine') 选择线路
+          span.mui-icon.mui-icon-arrowup(v-if="!showLine")
+          span.mui-icon.mui-icon-arrowdown(v-if="showLine")
+      div.mui-col-sm-6.mui-col-xs-12
+        div.mui-btn.mui-btn-block.choose(@click='chooseStation') 选择公交站
+          span.mui-icon.mui-icon-arrowup(v-if="!showStation")
+          span.mui-icon.mui-icon-arrowdown(v-if="showStation")
+    div#pullrefresh.mui-content.mui-scroll-wrapper(v-if="rooms.length != 0")
+      .mui-scroll
+        ul.mui-table-view
+          li.mui-table-view-cell.mui-media(v-for="room in rooms")
+            a(:href="room.url")
+              img.mui-media-object.mui-pull-left(src='/images/shuijiao.jpg')
+              div.mui-media-body
+                span {{room.name.length < 20 ? room.name: room.name.substring(0, 21) + '......'}}
+                p.mui-ellipsis {{room.price}}元/月
+    h2.noData(v-else) {{noData}}
+  script(src="/js/renting.js")

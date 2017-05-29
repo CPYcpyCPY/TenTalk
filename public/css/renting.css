@@ -1,0 +1,16 @@
+.choose {
+  padding: 0.4rem;
+  border-radius: 0;
+}
+
+.noData {
+  text-align: center;
+}
+
+.mui-scroll-wrapper {
+  top: 3rem !important;
+}
+
+* {
+  touch-action: none
+}
