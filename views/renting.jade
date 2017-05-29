@@ -15,7 +15,7 @@ block content
         div.mui-btn.mui-btn-block.choose(@click='chooseStation') 选择公交站
           span.mui-icon.mui-icon-arrowup(v-if="!showStation")
           span.mui-icon.mui-icon-arrowdown(v-if="showStation")
-    div#pullrefresh.mui-content.mui-scroll-wrapper(v-if="rooms.length != 0")
+    div#pullrefresh.mui-content.mui-scroll-wrapper(v-show="rooms.length != 0 && !loading")
       .mui-scroll
         ul.mui-table-view
           li.mui-table-view-cell.mui-media(v-for="room in rooms")
@@ -24,5 +24,6 @@ block content
               div.mui-media-body
                 span {{room.name.length < 20 ? room.name: room.name.substring(0, 21) + '......'}}
                 p.mui-ellipsis {{room.price}}元/月
-    h2.noData(v-else) {{noData}}
+    h2.noData(v-show="rooms.length == 0 && !loading") {{noData}}
+    img#loading(v-show="loading", src='/images/loading.gif')
   script(src="/js/renting.js")

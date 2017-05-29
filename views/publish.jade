@@ -10,24 +10,23 @@ block content
       h2#title {{text}}
       md-input-container
         label 物品名称
-        md-input
+        md-input(v-model="store.name")
+      .err {{err.name}}
       md-input-container
         label 价格(元)
-        md-input
+        md-input(v-model="store.price")
+      .err {{err.price}}
       md-input-container
         label 物品描述
-        md-textarea(maxlength='200')
+        md-textarea(v-model="store.description", maxlength='50')
+      .err {{err.description}}
       div#add
         div#add-photo
           span 添加图片
-          md-button.md-icon-button.md-raised.md-accent
+          md-button.md-icon-button.md-raised.md-accent(@click.native="selectImg")
             md-icon add
         div#photos
-          div.imgBox(v-for="img in images")
-            img(v-if="img.url", :src="img.url")
-          //img(src='/images/shuijiao.jpg')
-          //img(src='/images/shuijiao.jpg')
-          //img(src='/images/shuijiao.jpg')
-          //img(src='/images/shuijiao.jpg')
+          div.imgBox(v-for="index in [0, 1, 2, 3]")
+            img(v-if="images[index]", :src="images[index].url")
       md-button.md-raised.md-primary#submit(@click.native="submit") 发布
   script(src="/js/publish.js")

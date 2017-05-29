@@ -11,7 +11,8 @@ var app = new Vue({
     showStation: false,
     curLine: '',
     rooms: [],
-    noData: '开始你的选择',
+    loading: false,
+    noData: '请根据线路地点选择房源',
     userPicker: null,
     routes: routes
   },
@@ -81,13 +82,26 @@ var app = new Vue({
       })
     },
     getRooms: function (data, cb) {
+      this.loading = true;
       var self = this;
+      var start = new Date().getSeconds(), end;
       api.getHomeByPoint(data).then(function (res) {
-        if (cb) cb();
-        if (!res.data || !res.data.data || res.data.data.length == 0) return mui.alert("暂无租房信息");
-        self.rooms = res.data.data;
-        localStorage.setItem('rooms', JSON.stringify(self.rooms));
+        end = new Date().getSeconds();
+        if(end - start <= 1) {
+          setTimeout(function () {
+            self.showResult(res.data, cb)
+          }, 1000)
+        } else {
+          self.showResult(res.data, cb)
+        }
       })
+    },
+    showResult: function (data, cb) {
+      if (cb) cb();
+      this.loading = false
+      if (!data || !data.data || data.data.length == 0) return mui.alert("暂无新的租房信息");
+      this.rooms = data.data;
+      localStorage.setItem('rooms', JSON.stringify(this.rooms));
     }
   }
 })

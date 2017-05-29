@@ -10,7 +10,4 @@ window.onload = function () {
       console.log(res);
     })
   }
-  new Vue({
-    el: '#app'
-  })
 }
