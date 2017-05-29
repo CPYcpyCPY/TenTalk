@@ -6,8 +6,12 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/renting', function(req, res, next) {
-  res.render('renting', { title: '租房' });
+router.get('/test', function(req, res, next) {
+  res.render('test', { title: 'Express' });
+});
+
+router.get('/sell', function(req, res, next) {
+    res.render('sell', { title: '跳蚤市场' });
 });
 
 module.exports = router;
