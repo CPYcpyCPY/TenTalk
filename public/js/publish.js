@@ -3,6 +3,7 @@ Vue.use(VueMaterial)
 var store = {
   name: '',
   price: '',
+  token: '',
   description: '',
 }
 
@@ -32,7 +33,14 @@ var app = new Vue({
     selectImg: function () {
       var self = this;
       if(this.images.length >= 4) return mui.toast('最多上传四张图片');
+      if(!this.token) {
+        callNative.getToken(function (token) {
+          self.token = token;
+          console.log(token);
+        })
+      }
       callNative.selectImg({}, function (data) {
+        console.log(data)
         var url = data.split('/');
         var imgData = {
           name: url[url.length - 1],
@@ -43,9 +51,13 @@ var app = new Vue({
     },
     submit: function () {
       if(!this.check()) return;
-      if(this.images.length == 0) return mui.toast('至少上传一张图片');
-      store.images = this.images;
+      // if(this.images.length == 0) return mui.toast('至少上传一张图片');
+      this.store.images = this.images;
+      this.store.images = ['idle1.png', 'idle2.jpg', 'idle3.png'];
       console.log(this.store);
+      api.publishIdle(this.store).then(function (res) {
+        console.log(res);
+      })
     }
   }
 });

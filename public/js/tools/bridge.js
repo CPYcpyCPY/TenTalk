@@ -10,9 +10,15 @@ function connectWebViewJavascriptBridge(callback) {
 
 connectWebViewJavascriptBridge(function (bridge) {
   bridge.init();
-
   // 添加调用原生方法
   window.callNative = {
+    getToken: function (cb) {
+      bridge.callHandler('getToken', {},
+        function (responseData) {
+          cb(responseData);
+        }
+      )
+    },
     selectImg: function (params, cb) {
       bridge.callHandler('selectImg',
         { param: params},
@@ -20,6 +26,13 @@ connectWebViewJavascriptBridge(function (bridge) {
           cb(responseData);
         }
       )
+    },
+    uploadImg: function (idle_id, cb) {
+      bridge.callHandler('uploadImg', {
+        idle_id: idle_id
+      }, function (responseData) {
+        cb(responseData);
+      })
     }
   }
 })

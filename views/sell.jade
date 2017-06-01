@@ -1,34 +1,36 @@
 extends layout
 
 block content
-    link(rel="stylesheet" href="/css/sell.css")
-    script(src='/js/mui.zoom.js')
-    script(src='/js/mui.previewimage.js')
-    div#app
-        // 下拉刷新容器
-        #refreshContainer.mui-content.mui-scroll-wrapper(v-if="cardInfo.length !==0")
-            .mui-scroll
-                .mui-content
-                    .mui-row.mui-col-sm-12.mui-col-xs-12
-                        .mui-col-xs-6.mui-col-sm-6(v-for="card in cardInfo")
-                            .mui-card
-                                // 内容区
-                                .mui-card-content.mui-card-media
-                                    img(:src="card.url",width='100%', height='100%',data-preview-src='', :data-preview-group='card.group',:data-content='card.content')
-                                // 页脚，放置补充信息或支持的操作
-                                .mui-card-footer
-                                    .mui-row.mui-col-sm-12.mui-col-xs-12
-                                        .mui-row.mui-col-xs-12.mui-col-sm-12
-                                            .mui-col-sm-6.mui-col-xs-6.good_name
-                                                | {{card.name}}
-                                            .mui-col-sm-6.mui-col-xs-6.good_price
-                                                | {{card.price}}
-                                        .mui-row.mui-col-xs-12.mui-col-sm-12
-                                            .mui-col-sm-12.mui-col-xs-12.good_detail
-                                                | {{card.detail}}
-                                        .mui-row.mui-col-xs-12.mui-col-sm-12
-                                            .mui-col-sm-6.mui-col-xs-6.seller_name
-                                                | {{card.seller}}
-                                            .mui-col-sm-6.mui-col-xs-6.seller_phone
-                                                | {{card.phone}}
-        script(src='/js/sell.js')
+  link(rel="stylesheet" href="/css/sell.css")
+  link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+  script(src='/js/mui.zoom.js')
+  script(src='/js/mui.previewimage.js')
+  div#app
+    // 下拉刷新容器
+    #refreshContainer.mui-content.mui-scroll-wrapper(v-if="cardInfo.length !==0")
+      button#publish(@click='goToPublish') 发布
+      .mui-scroll
+        .mui-content
+          .mui-row.mui-col-sm-12.mui-col-xs-12
+            .mui-col-xs-6.mui-col-sm-6(v-for="card in cardInfo")
+              .mui-card
+                // 内容区
+                .mui-card-content.mui-card-media
+                  img(:src="card.url",width='100%', height='100%',data-preview-src='', :data-preview-group='card.group',:data-content='card.content')
+                // 页脚，放置补充信息或支持的操作
+                .mui-card-footer
+                  .mui-row.mui-col-sm-12.mui-col-xs-12
+                    .mui-row.mui-col-xs-12.mui-col-sm-12
+                      .mui-col-sm-6.mui-col-xs-6.good_name
+                        | {{card.name}}
+                      .mui-col-sm-6.mui-col-xs-6.good_price
+                        | {{card.price}}
+                    .mui-row.mui-col-xs-12.mui-col-sm-12
+                      .mui-col-sm-12.mui-col-xs-12.good_detail
+                        | {{card.detail}}
+                    .mui-row.mui-col-xs-12.mui-col-sm-12
+                      .mui-col-sm-6.mui-col-xs-6.seller_name
+                        | {{card.seller}}
+                      .mui-col-sm-6.mui-col-xs-6.seller_phone
+                        | {{card.phone}}
+    script(src='/js/sell.js')

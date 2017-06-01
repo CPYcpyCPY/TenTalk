@@ -1,3 +1,4 @@
+Vue.use(VueMaterial)
 function handleData(data) {
   var startIndex = data.indexOf('(');
   if (startIndex != -1) return data.substr(0, startIndex);
@@ -98,7 +99,8 @@ var app = new Vue({
     },
     showResult: function (data, cb) {
       if (cb) cb();
-      this.loading = false
+      this.loading = false;
+      mui.toast('以获取最新租房信息');
       if (!data || !data.data || data.data.length == 0) return mui.alert("暂无新的租房信息");
       this.rooms = data.data;
       localStorage.setItem('rooms', JSON.stringify(this.rooms));
