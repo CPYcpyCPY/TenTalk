@@ -4,6 +4,7 @@ function handleData(data) {
   if (startIndex != -1) return data.substr(0, startIndex);
   else return data
 };
+
 var app = new Vue({
   el: '#app',
   data: {
@@ -56,6 +57,7 @@ var app = new Vue({
         for (var i = 0; i < item.route.length; i++)
           item.route[i].text = item.route[i].station
         self.curLine = item.route
+        mui.toast('已经选择线路:' + item.text)
       });
     },
     chooseStation: function () {
@@ -100,8 +102,8 @@ var app = new Vue({
     showResult: function (data, cb) {
       if (cb) cb();
       this.loading = false;
-      mui.toast('以获取最新租房信息');
       if (!data || !data.data || data.data.length == 0) return mui.alert("暂无新的租房信息");
+      mui.toast('以获取最新租房信息');
       this.rooms = data.data;
       localStorage.setItem('rooms', JSON.stringify(this.rooms));
     }

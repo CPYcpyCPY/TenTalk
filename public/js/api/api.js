@@ -4,5 +4,12 @@ var api = {
   },
   publishIdle: function (data) {
     return axios.post('http://112.74.124.10/publishIdle', data);
+  },
+  getFirstIdle: function () {
+    return axios.get('/api/getFirstIdle');
+  },
+  getMoreIdle: function (count) {
+    console.log(count);
+    return axios.get('/api/getMoreIdle?count=' + count);
   }
 }
