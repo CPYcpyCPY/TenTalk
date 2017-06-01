@@ -1,8 +1,15 @@
 extends layout
 
 block content
-  div#box
-    button#sendMsg 发消息给原生
-    button#useNative js调用原生方法
-    button#reload 重新加载页面
-  p Welcome to #{title}
+  link(href="/css/index.css", rel="stylesheet")
+  script(src='/js/index.js')
+  div#app
+    div.box
+      button#sendMsg.mui-btn.mui-btn-primary 发消息给原生
+      button#useNative.mui-btn.mui-btn-success js调用原生方法
+      button#reload.mui-btn.mui-btn-warning 重新加载页面
+    br
+    div.box
+      a.mui-btn.mui-btn-primary(href='/renting') 租房
+      a.mui-btn.mui-btn-success(href='/publish') 发布闲置
+      a.mui-btn.mui-btn-warning(href='/sell') 跳蚤市场

@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  link(href='/MUI/css/mui.picker.min.css', rel="stylesheet")
+  link(href='/framework/vue-material.css', rel="stylesheet")
+  link(href='/css/renting.css', rel="stylesheet")
+  script(src="/js/data.js")
+  script(src="/framework/vue-material.js")
+  script(src="/MUI/js/mui.picker.min.js")
+  div#app
+    div.nav-box
+      div.nav
+        div.mui-btn.mui-btn-block.choose(@click='chooseLine') 选择线路
+          span.mui-icon.mui-icon-arrowup(v-if="!showLine")
+          span.mui-icon.mui-icon-arrowdown(v-if="showLine")
+      div.nav
+        div.mui-btn.mui-btn-block.choose(@click='chooseStation') 选择公交站
+          span.mui-icon.mui-icon-arrowup(v-if="!showStation")
+          span.mui-icon.mui-icon-arrowdown(v-if="showStation")
+    div#pullrefresh.mui-content.mui-scroll-wrapper(v-show="rooms.length != 0 && !loading")
+      .mui-scroll
+        .phone-viewport
+          md-list.custom-list.md-triple-line
+            md-list-item(v-for="room in rooms")
+              .img.md-avatar
+                img(src='/images/shuijiao.jpg', alt='People')
+              a.md-list-text-containera(:href="room.url")
+                span {{room.price}}元/月
+                p {{room.name.length < 20 ? room.name: room.name.substring(0, 21) + '......'}}
+              md-divider.md-inset
+    h2.noData(v-show="rooms.length == 0 && !loading") {{noData}}
+    img#loading(v-show="loading", src='/images/loading.gif')
+  script(src="/js/renting.js")

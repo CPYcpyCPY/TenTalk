@@ -1,0 +1,14 @@
+.box {
+  display: flex;
+}
+
+.box button, a {
+  flex: 1;
+}
+
+#test {
+  margin-top: 20px;
+  height: 500px;
+  overflow: scroll;
+  background-color: #3eb0b9;
+}

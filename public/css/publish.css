@@ -1,0 +1,57 @@
+#app {
+  padding-top: 2rem;
+}
+#title {
+  text-align: center;
+}
+
+#form {
+  width: 85%;
+  margin: 0 auto;
+}
+
+#add {
+  margin-top: 5rem;
+  display: flex;
+}
+
+#add-photo {
+  width: 20%;
+  text-align: center;
+}
+
+#add-icon {
+  font-size: 2.5rem;
+}
+
+#photos {
+  display: flex;
+}
+
+#photos img {
+  width: 4rem;
+  height: 4rem;
+  margin: 0.1rem;
+}
+
+#submit {
+  width: 100%;
+  margin-top: 4rem;
+}
+
+.imgBox {
+  width: 4.2rem;
+  height: 4.2rem;
+  margin: 0.1rem;
+  border: 0.05rem dotted black;
+}
+
+#test-img {
+  width: 100px;
+  height: 100px;
+}
+
+.err {
+  color: red;
+  margin-top: -1.0rem !important;
+}
