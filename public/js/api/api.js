@@ -3,7 +3,7 @@ var api = {
     return axios.post('http://tincent.edzh.me/api/filter', data)
   },
   publishIdle: function (data) {
-    return axios.post('http://112.74.124.10/publishIdle', data);
+    return axios.post('/api/publishIdle', data);
   },
   getFirstIdle: function () {
     return axios.get('/api/getFirstIdle');
@@ -11,5 +11,8 @@ var api = {
   getMoreIdle: function (count) {
     console.log(count);
     return axios.get('/api/getMoreIdle?count=' + count);
+  },
+  getImgsGroup: function (imgGroup) {
+    return axios.get('/api/getImgGroup?imgGroup=' + imgGroup);
   }
-}
+};

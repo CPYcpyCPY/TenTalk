@@ -28,9 +28,7 @@ connectWebViewJavascriptBridge(function (bridge) {
       )
     },
     uploadImg: function (idle_id, cb) {
-      bridge.callHandler('uploadImg', {
-        idle_id: idle_id
-      }, function (responseData) {
+      bridge.callHandler('uploadImg', idle_id, function (responseData) {
         cb(responseData);
       })
     }
