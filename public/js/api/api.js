@@ -13,6 +13,9 @@ var api = {
     return axios.get('/api/getMoreIdle?count=' + count);
   },
   getImgsGroup: function (imgGroup) {
-    return axios.get('/api/getImgGroup?imgGroup=' + imgGroup);
+    console.log(imgGroup);
+    var url = '/api/getImgGroup?imgGroup=' + imgGroup;
+    console.log(url);
+    return axios.get(url);
   }
 };

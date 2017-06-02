@@ -2,12 +2,11 @@ extends layout
 
 block content
   link(rel="stylesheet" href="/css/sell.css")
-  link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
   script(src='/js/mui.zoom.js')
   script(src='/js/mui.previewimage.js')
   div#app
     // 下拉刷新容器
-    #refreshContainer.mui-content.mui-scroll-wrapper(v-if="cardInfo.length !==0")
+    #refreshContainer.mui-content.mui-scroll-wrapper(v-show="cardInfo.length !==0 && !loading")
       button#publish(@click='goToPublish') 发布
       .mui-scroll
         .mui-content
@@ -16,7 +15,7 @@ block content
               .mui-card
                 // 内容区
                 .mui-card-content.mui-card-media
-                  img(:src="card.url",width='100%', height='100%',data-preview-src='', :data-preview-group='card.group',:data-content='card.content')
+                  img(:src="'images' + '/' + card.imgGroup + '/' + card.imgUrl",width='100%', height='100%',data-preview-src='', :data-preview-group='card.imgGroup',:data-content='card.description')
                 // 页脚，放置补充信息或支持的操作
                 .mui-card-footer
                   .mui-row.mui-col-sm-12.mui-col-xs-12
@@ -27,10 +26,11 @@ block content
                         | {{card.price}}
                     .mui-row.mui-col-xs-12.mui-col-sm-12
                       .mui-col-sm-12.mui-col-xs-12.good_detail
-                        | {{card.detail}}
+                        | {{card.description}}
                     .mui-row.mui-col-xs-12.mui-col-sm-12
                       .mui-col-sm-6.mui-col-xs-6.seller_name
                         | {{card.seller}}
                       .mui-col-sm-6.mui-col-xs-6.seller_phone
                         | {{card.phone}}
-    script(src='/js/sell.js')
+    img#loading(v-show="loading", src='/images/loading.gif')
+  script(src='/js/sell.js')

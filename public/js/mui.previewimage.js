@@ -82,29 +82,39 @@
 	};
 	//添加图片（组）
 	proto.addImages = function(group, index) {
-		//----------------add----------------
-		//避免格式乱掉
-        var pa = document.querySelector('.paclass');
+		//----------------add----------------4
+		if(!group) return;
+    //避免格式乱掉
+    var pa = document.querySelector('.paclass');
 
-		//清除添加的元素
-        if(pa){
-            window.document.body.removeChild(pa);
-		}
-		//动态添加图片
-		var pa = document.createElement('p');
-		pa.setAttribute('class','paclass')
-		var imga = document.createElement('img');
-		imga.setAttribute('src','../images/shuijiao.jpg');
-		imga.setAttribute('data-preview-src','');
-		imga.setAttribute('data-preview-group',group);
-		imga.setAttribute('class','newAddClassImage');
-		// console.log(imga.getAttribute('class'));
-		document.body.appendChild(pa);
-		pa.appendChild(imga);
-		//添加标题
+    //清除添加的元素
+    if(pa){
+      window.document.body.removeChild(pa);
+    }
+		api.getImgsGroup(group).then((res) => {
+			var data = res.data.imgs[0];
+      console.log(data);
+      var urls = data.urls.split(',');
+			for(var i = 0; i < urls.length; i++) {
+        //动态添加图片
+        var pa = document.createElement('p');
+        pa.setAttribute('class','paclass')
+        var imga = document.createElement('img');
+        imga.setAttribute('src', 'images' + '/' + data.imgGroup + '/' + urls[i]);
+        imga.setAttribute('data-preview-src','');
+        imga.setAttribute('data-preview-group',group);
+        imga.setAttribute('class','newAddClassImage');
+        // console.log(imga.getAttribute('class'));
+        document.body.appendChild(pa);
+        pa.appendChild(imga);
+        //添加标题
         var content = document.querySelector("img[data-preview-src][data-preview-group='" + group + "']").getAttribute('data-content');
+        console.log(content);
         var footerContent = document.querySelector('span[class="mui-preview-footerContent"]');
+        console.log(footerContent)
         footerContent.innerText = content;
+			}
+		})
 		//-----------------add--------------
 		this.groups = {};
 		var imgs = [];

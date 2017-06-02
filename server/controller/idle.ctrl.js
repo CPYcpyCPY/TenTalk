@@ -19,6 +19,7 @@ module.exports.getByCount = (req, res) => {
 };
 
 module.exports.getImgGroup = (req, res) => {
+  console.log(req.query.imgGroup);
   ImgGroup.getByNumber(req.query.imgGroup).then((result) => {
     res.json({imgs: result});
   })
@@ -34,8 +35,8 @@ module.exports.uploadImg = (req, res) => {
     for(let key in files) {
       let file = files[key];
       if(key == 'activityPhoto0') idleCache.imgUrl = file.name + '.png';
-      urls += (file.name + '.png')
-      fs.rename(file.path, path.join(form.fileDir + '/' + idleId, file.name));
+      urls += (file.name + '.png,')
+      fs.rename(file.path, path.join(form.fileDir + '/' + idleId, file.name + '.png'));
     };
     let data = {
       imgGroup: imgGroup,
@@ -44,9 +45,10 @@ module.exports.uploadImg = (req, res) => {
     Idle.insert([idleCache]).then(() => {
       console.log('插入Idle成功!');
     });
-    imgGroup.insert([data]).then((res) => {
+    ImgGroup.insert([data]).then((result) => {
       return res.end('上传成功！');
-    })
+    });
+    res.json({msg: '成功'});
   })
 };
 
@@ -59,11 +61,11 @@ module.exports.publishIdle = (req, res) => {
   idleCache.path = idleId;
   idleCache.imgGroup = ms;
 
-  idleCache.seller = '测试者';
-  idleCache.phone = '13788113242';
-  idleCache.imgUrl = 'img1.png';
-  Idle.insert([idleCache]).then(() => {
-    console.log('插入Idle成功!');
-  });
+  // idleCache.seller = '测试者';
+  // idleCache.phone = '13788113242';
+  // idleCache.imgUrl = 'img1.png';
+  // Idle.insert([idleCache]).then(() => {
+  //   console.log('插入Idle成功!');
+  // });
   res.json({idleId: idleId});
 };

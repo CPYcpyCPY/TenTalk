@@ -5,20 +5,22 @@
 var app = new Vue({
   el: '#app',
   data: {
-    cardInfo: []
+    cardInfo: [],
+    refleshCount: 1,
+    loading: false
   },
   created: function () {
     //开始请求数据，获得初始数据
-    this.cardInfo = localStorage.getItem('cardInfo') ? JSON.parse(localStorage.getItem('cardInfo')) : [{
-      url: './images/cbd.jpg',
-      group: '1',
-      content: '标题',
-      name: 'MacPro',
-      price: '998$',
-      detail: 'dkfjslkdjflsjdflsdfsdfs',
-      seller: 'hualyzheng',
-      phone: '12345678909'
-    }];
+    // if(localStorage.getItem('cardInfo')) {
+    //     this.cardInfo = JSON.parse(localStorage.getItem('cardInfo'));
+    // } else {
+        api.getFirstIdle().then((res)=> {
+          var data = res.data.idles;
+          this.refleshCount = 0;
+          this.cardInfo = data;
+          // })
+        });
+    // }
     mui.init({
       pullRefresh: {
         container: "#refreshContainer",//下拉刷新容器标识
@@ -51,29 +53,53 @@ var app = new Vue({
       })
     },
     pullupRefresh: function () {
-      //获得下拉
-      this.getCardInfo(function () {
+      //获得上拉加载数据
+      this.getCardInfoMore(function () {
         mui('#refreshContainer').pullRefresh().endPullupToRefresh();
       })
     },
     getCardInfo: function (cb) {
-      var self = this;
-      if (cb) cb();
-      setTimeout(function () {
-        self.cardInfo.push({
-          url: './images/cbd.jpg',
-          group: '1',
-          content: '标题',
-          name: 'MacPro',
-          price: '998$',
-          detail: 'dkfjslkdjflsjdflsdfsdfs',
-          seller: 'hualyzheng',
-          phone: '12345678909'
-        })
-      }, 1500);
-      //本地存储
-      localStorage.setItem('cardInfo', JSON.stringify(self.cardInfo));
-    },
+          this.loading = true;
+          var self = this;
+          var start = new Date().getSeconds(), end;
+          self.cardInfo = [];
+          api.getFirstIdle().then((res)=> {
+              end = new Date().getSeconds();
+              var data = res.data.idles;
+              if(end - start <=1){
+                  setTimeout(function () {
+                      self.rentData(data,cb);
+                  },1000);
+              }else {
+                  self.rentData(data,cb);
+              }
+          })
+
+        },
+      rentData: function (data,cb) {
+          if(cb) cb();
+          this.loading = false;
+          if(!data || data.length == 0){
+              return mui.alert('暂无数据');
+          }
+          mui.toast('已刷新');
+          //渲染数据
+          this.cardInfo = data;
+          //本地存储
+          localStorage.setItem('cardInfo', JSON.stringify(self.cardInfo));
+      },
+      getCardInfoMore:function (cb) {
+          var self = this;
+          if (cb) cb();
+          api.getMoreIdle(this.refleshCount++).then((res)=> {
+              var data = res.data.idles;
+            self.cardInfo.concat(data);
+
+              if(data.length < 8) mui.toast("没有更多数据！");
+          })
+          //本地存储
+          localStorage.setItem('cardInfo', JSON.stringify(self.cardInfo));
+      },
     goToPublish: function () {
       location.href = '/publish'
     }

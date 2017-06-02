@@ -8,8 +8,8 @@ let conn = require('../conn');
 function ImgGroup() {
   let name = 'ImgGroup';
   let keys = [
-    { val: 'imgGroup', type: 'int'},
-    { val: 'urls', type: 'varchar(200)'},
+    { val: 'imgGroup', type: 'BIGINT UNSIGNED'},
+    { val: 'urls', type: 'varchar(2000)'},
   ];
   BaseTable.call(this, name, keys);
 

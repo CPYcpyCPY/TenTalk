@@ -23,7 +23,7 @@ block content
           md-list.custom-list.md-triple-line
             md-list-item(v-for="(room, index) in rooms")
               .img.md-avatar
-                img(:src="'/images/room' + index%15 + '.jpeg'")
+                img(:src="'/images//renting/room' + index%15 + '.jpeg'")
               a.md-list-text-containera(:href="room.url")
                 span {{room.price}}元/月
                 p {{room.name.length < 20 ? room.name: room.name.substring(0, 21) + '......'}}
