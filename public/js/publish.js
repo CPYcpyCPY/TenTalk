@@ -3,7 +3,8 @@ Vue.use(VueMaterial)
 var store = {
   name: '',
   price: '',
-  token: '',
+  seller: '',
+  phone: '',
   description: '',
 }
 
@@ -34,9 +35,11 @@ var app = new Vue({
       var self = this;
       if(this.images.length >= 4) return mui.toast('最多上传四张图片');
       if(!this.token) {
-        callNative.getToken(function (token) {
-          self.token = token;
-          console.log(token);
+        callNative.getToken(function (msg) {
+          var data = msg.split(',');
+          self.seller = data[1];
+          self.phone = data[2];
+          console.log(data);
         })
       }
       callNative.selectImg({}, function (data) {
@@ -51,13 +54,15 @@ var app = new Vue({
     },
     submit: function () {
       if(!this.check()) return;
-      // if(this.images.length == 0) return mui.toast('至少上传一张图片');
-      this.store.images = this.images;
-      this.store.images = ['idle1.png', 'idle2.jpg', 'idle3.png'];
+      // if(this.images.length == 0)   return mui.toast('至少上传一张图片');
       console.log(this.store);
-      api.publishIdle(this.store).then(function (res) {
-        console.log(res);
-      })
+      api.publishIdle(this.store).then(function (res) {   //现获取Idleid，再传给原生
+        var idleId = res.data.idleId;
+        callNative.uploadImg(idleId, function (data) {
+          mui.toast('发布成功！');
+          location.href = '/sell';
+        })
+      });
     }
   }
 });

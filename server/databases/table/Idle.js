@@ -9,7 +9,8 @@ function Idle() {
   let name = 'Idle';
   let keys = [
     { val: 'imgUrl', type: 'varchar(200)'},
-    { val: 'imgGroup', type: 'float'},
+    { val: 'imgGroup', type: 'varchar(200)'},
+    { val: 'path', type: 'varchar(200)'},
     { val: 'description', type: 'varchar(200)'},
     { val: 'name', type: 'varchar(200)'},
     { val: 'price', type: 'float'},

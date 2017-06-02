@@ -262,3 +262,14 @@ p img {
   font-size: 1.2rem;
   color: white;
 }
+
+#loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+* {
+  touch-action: none
+}
